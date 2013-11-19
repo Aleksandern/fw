@@ -1,0 +1,11 @@
+<?php
+namespace app\core;
+
+class Ip
+{
+    public static function get()
+    {
+        $ip = $_SERVER['REMOTE_ADDR'];
+        return $ip;
+    }
+}

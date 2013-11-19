@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Главная</title>
+</head>
+<body>
+<a href="/">Main</a>  <a href="/portfolio">Portfolio</a><br><br>
+
+<?php
+//echo $this->main; 
+?>
+{main}
+<hr>
+{portfolio}
+<hr>
+{eprst}
+<br>
+{hzhz}
+<br>
+{asdasd}
+<br>
+-- {lang_hz}
+</body>
+</html>

@@ -1,0 +1,62 @@
+<?php
+namespace app\core;
+
+class Bd
+{
+  private $conn;
+  private $select;
+  private $host;
+  private $user;
+  private $pass;
+                     
+  function __construct() {
+    $config = \Config::get();
+    $this->select = $config['db']['select'];
+    $this->host = $config['db']['host'];  
+    $this->user = $config['db']['user'];
+    $this->pass = $config['db']['pass'];
+      
+    try {
+      $this->conn = new PDO ("mysql:host=".$this->db_host.";dbname=".$this->db_select."", $this->db_user, $this->db_pass);
+      $this->conn -> setAttribute ( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $this->conn->exec('SET NAMES UTF8');
+    }
+    catch (PDOException $e) {
+      echo $e->GetMessage().' '.FILE_APPEND;
+    }
+  }
+
+  public function query ($request, $data=Array()) {
+    $query = $this->conn->prepare($request); 
+    $query->execute($data);
+  }
+    
+  public function select ($request, $data=array()) {
+    $query = $this->conn->prepare($request);
+    $query->execute($data);
+    return $this->result2array($query);
+  }
+  
+  public function insert ($request, $data) {
+    $query = $this->conn->prepare($request);
+    $query->execute($data);
+    return $this->conn-> lastInsertId();
+  }
+  
+  private function result2array(&$query){
+    $result = array();
+    $i = 0;
+     
+    if($query === false) { return $result; }
+      
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    while($row = $query->fetch()) {
+      $result[$i] = array();
+      foreach($row as $key=>$value) {
+        if(!is_numeric($key)) { $result[$i][strtolower($key)] = $value; }
+      }
+      $i++;
+    }
+    return $result;
+  }    
+}

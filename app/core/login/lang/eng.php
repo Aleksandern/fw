@@ -1,0 +1,13 @@
+<?php
+
+return array(
+    'login' => 'Login',
+    'password' => 'Password',
+    'submit' => 'Send',
+    'auth_wrong' => 'Login or Password is wrong.',    
+    'save_passw' => 'remember',
+);
+
+
+
+

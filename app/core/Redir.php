@@ -1,0 +1,13 @@
+<?php
+namespace app\core;
+
+class Redir
+{
+    public static function page ($page)
+    {
+        $config = \Config::get();
+        header ('Location: '.$config['site_dom'].'/'.$page);
+        die();
+    }
+}
+
